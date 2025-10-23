@@ -1,0 +1,32 @@
+{% extends "main.html" %}
+
+{% block content %}
+<section class="bin-section">
+    <h1>Deleted Articles Bin</h1>
+    {% if articles %}
+        <p>Here are your deleted articles. You can restore them or permanently delete them.</p>
+        <div class="articles-list">
+            {% for article in articles %}
+                <div class="article-item">
+                    <h2>{{ article.title }}</h2>
+                    <p><strong>Category:</strong> {{ article.category }}</p>
+                    <p><strong>Published:</strong> {{ article.published_date }}</p>
+                    <div class="article-actions">
+                        <form method="post" action="{% url 'restore_article' article.id %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="restore-link">Restore</button>
+                        </form>
+                        <form method="post" action="{% url 'permanent_delete' article.id %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="delete-link" onclick="return confirm('Are you sure you want to permanently delete this article?')">Permanently Delete</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No deleted articles found.</p>
+    {% endif %}
+    <a href="{% url 'home' %}" class="back-link">Back to Home</a>
+</section>
+{% endblock content %}

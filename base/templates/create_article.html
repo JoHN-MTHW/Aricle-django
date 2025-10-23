@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+
+{% block content %}
+<section class="create-article-section">
+    <div class="container">
+        <h2>Create New Article</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Create Article</button>
+        </form>
+        <button onclick="history.back()" class="btn btn-secondary" style="margin-top: 20px;">Go Back</button>
+    </div>
+</section>
+{% endblock content %}

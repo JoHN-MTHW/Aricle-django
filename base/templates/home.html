@@ -1,0 +1,39 @@
+{% extends "main.html" %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="hero-content">
+        <p class="subtitle">Accelerating research discovery to shape a better future</p>
+        <h1>Today's research, tomorrow's innovation</h1>
+
+        <form class="search-box" action="{% url 'search' %}" method="get">
+            <input type="text" name="q" placeholder="Search publications, articles, keywords, etc.">
+            <button type="submit" class="search-btn">🔍</button>
+        </form>
+    </div>
+</section>
+
+<section class="subjects-section">
+    <div class="container">
+        <h2>Explore Subjects</h2>
+        <div class="subjects-grid">
+            <a href="{% url 'subject' 'Science' %}" class="subject-link"><div class="subject-card">Science</div></a>
+            <a href="{% url 'subject' 'History' %}" class="subject-link"><div class="subject-card">History</div></a>
+            <a href="{% url 'subject' 'Literature' %}" class="subject-link"><div class="subject-card">Literature</div></a>
+            <a href="{% url 'subject' 'Mathematics' %}" class="subject-link"><div class="subject-card">Mathematics</div></a>
+            <a href="{% url 'subject' 'Art' %}" class="subject-link"><div class="subject-card">Art</div></a>
+            <a href="{% url 'subject' 'Philosophy' %}" class="subject-link"><div class="subject-card">Philosophy</div></a>
+            <a href="{% url 'subject' 'Psychology' %}" class="subject-link"><div class="subject-card">Psychology</div></a>
+            <a href="{% url 'subject' 'Economics' %}" class="subject-link"><div class="subject-card">Economics</div></a>
+            <a href="{% url 'subject' 'Biology' %}" class="subject-link"><div class="subject-card">Biology</div></a>
+            <a href="{% url 'subject' 'Chemistry' %}" class="subject-link"><div class="subject-card">Chemistry</div></a>
+            <a href="{% url 'subject' 'Physics' %}" class="subject-link"><div class="subject-card">Physics</div></a>
+            <a href="{% url 'subject' 'Sociology' %}" class="subject-link"><div class="subject-card">Sociology</div></a>
+            <a href="{% url 'subject' 'Geography' %}" class="subject-link"><div class="subject-card">Geography</div></a>
+            <a href="{% url 'subject' 'Computer Science' %}" class="subject-link"><div class="subject-card">Computer Science</div></a>
+            <a href="{% url 'subject' 'Engineering' %}" class="subject-link"><div class="subject-card">Engineering</div></a>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

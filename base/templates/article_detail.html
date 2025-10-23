@@ -1,0 +1,29 @@
+{% extends "main.html" %}
+
+{% block content %}
+<section class="article-detail">
+    <h1>{{ article.title }}</h1>
+    <p><strong>Author:</strong> {{ article.author.username }}</p>
+    <p><strong>Category:</strong> {{ article.category }}</p>
+    <p><strong>Published:</strong> {{ article.published_date }}</p>
+    <div class="article-content">
+        {{ article.content|linebreaks }}
+    </div>
+    {% if user.is_authenticated and user == article.author %}
+        <div class="article-actions">
+            <a href="{% url 'update_article' article.id %}" class="edit-link">Edit Article</a>
+            {% if delete_confirm %}
+                <p>Are you sure you want to delete this article? It will be moved to the bin.</p>
+                <form method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="delete-link">Confirm Delete</button>
+                </form>
+                <a href="{% url 'article_detail' article.id %}" class="cancel-link">Cancel</a>
+            {% else %}
+                <a href="{% url 'delete_article' article.id %}" class="delete-link">Delete Article</a>
+            {% endif %}
+        </div>
+    {% endif %}
+    <a href="{% url 'subject' article.category %}" class="back-link">Back to {{ article.category }} Articles</a>
+</section>
+{% endblock content %}

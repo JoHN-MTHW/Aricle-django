@@ -1,0 +1,41 @@
+{% extends "main.html" %}
+
+{% block content %}
+<section class="subject-header">
+    <h1>Search Results for "{{ query }}"</h1>
+</section>
+
+<section class="articles-section">
+    <div class="articles-grid">
+        {% for article in articles %}
+        <div class="article-card {% if article.is_locked %}locked{% else %}unlocked{% endif %}">
+            {% if article.is_locked and not user.is_authenticated %}
+                <h3><a href="{% url 'login' %}">{{ article.title }}</a></h3>
+                <div class="lock-icon">🔒 Locked</div>
+                <p>To read please login.</p>
+            {% else %}
+                <h3>{{ article.title }}</h3>
+                <p><strong>Author:</strong> {{ article.author }}</p>
+                <p><strong>Category:</strong> {{ article.category }}</p>
+                <p><strong>Published:</strong> {{ article.published_date }}</p>
+                {% if article.is_locked %}
+                    <div class="lock-icon">🔒 Locked</div>
+                {% else %}
+                    <div class="unlock-icon">🔓 Unlocked</div>
+                {% endif %}
+                <p>{{ article.content|truncatechars:150 }}</p>
+                <a href="{% url 'article_detail' article.id %}" class="read-more">Read More</a>
+            {% endif %}
+            {% if user.is_authenticated and user == article.author %}
+                <div class="article-actions">
+                    <a href="{% url 'update_article' article.id %}" class="edit-link">Edit</a>
+                    <a href="{% url 'delete_article' article.id %}" class="delete-link">Delete</a>
+                </div>
+            {% endif %}
+        </div>
+        {% empty %}
+        <p>No articles found matching your search query.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock content %}
